@@ -3,7 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:intl/intl.dart';
 import 'package:kp/model/butroll.dart';
 
-void writeNewPost(String position, String username, String grup) async {
+void UpdateUser(String position, String username, String grup) async {
   // A post entry.
   var uid = FirebaseAuth.instance.currentUser?.uid;
 
@@ -25,7 +25,9 @@ void writeNewPost(String position, String username, String grup) async {
   // Write the new post's data simultaneously in the posts list and the
   // user's post list.
   final Map<String, Map> updates = {};
-  updates['/user/$username'] = postData;
+  updates['/user/$uid'] = postData;
 
   return FirebaseDatabase.instance.ref().update(updates);
 }
+
+void getUser(params) {}

@@ -1,9 +1,14 @@
 // ignore_for_file: use_build_context_synchronously, sort_child_properties_last, prefer_const_constructors
 
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kp/constants/r.dart';
+import 'package:kp/screen/dashboard.dart';
+import 'package:kp/screen/update_user.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -14,6 +19,21 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Timer(const Duration(seconds: 1), () async {
+      final event = await ref.once(DatabaseEventType.value);
+      final username = event.snapshot.child('user/$uid/username').value;
+      grup = event.snapshot.child('user/$uid/grup').value;
+      print(username);
+      if (User != null) {
+        Navigator.of(context).pushReplacementNamed(Dashboard.route);
+      }
+    });
+  }
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -35,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
     var result = await FirebaseAuth.instance.signInWithCredential(credential);
 
     if (result.additionalUserInfo!.isNewUser) {
-      // Navigator.of(context).pushReplacementNamed(ProfilePage.route);
+      Navigator.of(context).pushReplacementNamed(FormUpdateUser.route);
     }
     //Perform what you want to do for old users here
     //like fetching a specific user document
@@ -145,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                 final user = FirebaseAuth.instance.currentUser;
 
                 if (user != null) {
-                  // Navigator.of(context).pushReplacementNamed(MainPage.route);
+                  Navigator.of(context).pushReplacementNamed(Dashboard.route);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:kp/screen/dashboard.dart';
+import 'package:kp/screen/hitung_butroll.dart';
 import 'package:kp/screen/loginpage.dart';
 import 'package:kp/screen/splash_screen.dart';
 import 'package:kp/screen/update_user.dart';
@@ -35,14 +36,11 @@ class MyApp extends StatelessWidget {
               ),
               initialRoute: "/",
               routes: {
-                "/": (context) => const SplashScreen(),
+                "/": (context) => SplashScreen(),
                 LoginPage.route: (context) => LoginPage(),
                 Dashboard.route: (context) => Dashboard(),
-                // RootPage.route: (context) => RootPage(auth: new Auth()),
-                // MyHomePage.route: (context) => MyHomePage(
-                //       title: 'MyHomePage',
-                //     ),
                 FormUpdateUser.route: (context) => FormUpdateUser(),
+                HitungPage.route: (context) => HitungPage(),
 
                 //
                 // LoginPage.route: (context) =>  LoginPage(auth: new Auth(),),

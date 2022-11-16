@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:kp/model/post.dart';
 import 'package:kp/screen/dashboard.dart';
 
-class FormUpdateUser extends StatelessWidget {
+class FormUpdateUser extends StatefulWidget {
   FormUpdateUser({
     super.key,
   });
@@ -11,9 +13,16 @@ class FormUpdateUser extends StatelessWidget {
   final poscontroller = TextEditingController();
   final groupcontroller = TextEditingController();
   static const String route = "FormUpdateUser";
+  @override
+  State<FormUpdateUser> createState() => _FormUpdateUserState();
+}
 
+class _FormUpdateUserState extends State<FormUpdateUser> {
   @override
   Widget build(BuildContext context) {
+    var _user = FirebaseAuth.instance.currentUser;
+    print("user");
+    print(_user);
     // final user = FirebaseAuth.instance.currentUser;
     // if (user != null) {
     //   // Name, email address, and profile photo URL
@@ -32,64 +41,60 @@ class FormUpdateUser extends StatelessWidget {
     // print("ini user");
     // print(user);
 
-    return Expanded(
-        child: Column(children: [
-      SizedBox(
-        height: 5,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("update profile"),
       ),
-      Container(
-          margin: EdgeInsets.all(15),
-          child: Flexible(
-            child: TextField(
-                controller: namecontroller,
-                decoration: InputDecoration(
-                  hintText: "submit your name",
-                  labelText: "fullname",
-                  icon: Icon(Icons.people),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0)),
-                )),
-          )),
-      SizedBox(
-        height: 5,
-      ),
-      Container(
-          margin: EdgeInsets.all(15),
-          child: Flexible(
-            child: TextField(
-                controller: poscontroller,
-                decoration: InputDecoration(
-                  hintText: "submit your position",
-                  labelText: "position",
-                  icon: Icon(Icons.people),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0)),
-                )),
-          )),
-      SizedBox(
-        height: 5,
-      ),
-      Container(
-          margin: EdgeInsets.all(15),
-          child: Flexible(
-            child: TextField(
-                controller: groupcontroller,
-                decoration: InputDecoration(
-                  hintText: "submit your group",
-                  labelText: "Grup",
-                  icon: Icon(Icons.people),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0)),
-                )),
-          )),
-      ElevatedButton(
-        child: const Text('write new post'),
-        onPressed: () {
-          writeNewPost(
-              poscontroller.text, namecontroller.text, groupcontroller.text);
-          Navigator.pushReplacementNamed(context, Dashboard.route);
-        },
-      ),
-    ]));
+      body: Center(
+          child: Column(children: [
+        Container(
+            margin: EdgeInsets.all(15),
+            child: Flexible(
+              child: TextField(
+                  controller: widget.namecontroller,
+                  decoration: InputDecoration(
+                    hintText: "submit your name",
+                    labelText: _user!.displayName,
+                    icon: Icon(Icons.people),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0)),
+                  )),
+            )),
+        Container(
+            margin: EdgeInsets.all(15),
+            child: Flexible(
+              child: TextField(
+                  controller: widget.poscontroller,
+                  decoration: InputDecoration(
+                    hintText: "submit your position",
+                    labelText: "position",
+                    icon: Icon(Icons.people),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0)),
+                  )),
+            )),
+        Container(
+            margin: EdgeInsets.all(15),
+            child: Flexible(
+              child: TextField(
+                  controller: widget.groupcontroller,
+                  decoration: InputDecoration(
+                    hintText: "submit your group",
+                    labelText: "Grup",
+                    icon: Icon(Icons.people),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0)),
+                  )),
+            )),
+        ElevatedButton(
+          child: const Text('write new post'),
+          onPressed: () {
+            UpdateUser(widget.poscontroller.text, widget.namecontroller.text,
+                widget.groupcontroller.text);
+            Navigator.pushReplacementNamed(context, Dashboard.route);
+          },
+        ),
+      ])),
+    );
   }
 }
