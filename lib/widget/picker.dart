@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:kp/model/butroll.dart';
 
+int SelectedDiameter = 0;
 var diameterinput;
 const double _kItemExtent = 22.0;
 const List<String> _fruitNames = <String>[
@@ -44,8 +45,6 @@ class PickerDiameter extends StatefulWidget {
 }
 
 class _PickerDiameterState extends State<PickerDiameter> {
-  int _selectedFruit = 0;
-
   // This shows a CupertinoModalPopup with a reasonable fixed height which hosts CupertinoPicker.
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(
@@ -69,7 +68,7 @@ class _PickerDiameterState extends State<PickerDiameter> {
 
   @override
   Widget build(BuildContext context) {
-    diameterinput = (_selectedFruit + 17);
+    diameterinput = (SelectedDiameter + 17);
     return Center(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +86,7 @@ class _PickerDiameterState extends State<PickerDiameter> {
                 // This is called when selected item is changed.
                 onSelectedItemChanged: (int selectedItem) {
                   setState(() {
-                    _selectedFruit = selectedItem;
+                    SelectedDiameter = selectedItem;
                   });
                 },
                 children:
@@ -102,7 +101,7 @@ class _PickerDiameterState extends State<PickerDiameter> {
             ),
             // This displays the selected fruit name.
             child: Text(
-              _fruitNames[_selectedFruit],
+              _fruitNames[SelectedDiameter],
               style: const TextStyle(
                 fontSize: 22.0,
               ),

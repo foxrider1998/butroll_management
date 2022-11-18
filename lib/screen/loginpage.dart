@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
       final username = event.snapshot.child('user/$uid/username').value;
       grup = event.snapshot.child('user/$uid/grup').value;
       print(username);
-      if (User != null) {
+      if (uid != null) {
         Navigator.of(context).pushReplacementNamed(Dashboard.route);
       }
     });

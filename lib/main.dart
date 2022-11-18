@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:kp/screen/dashboard.dart';
 import 'package:kp/screen/hitung_butroll.dart';
+import 'package:kp/screen/kalkulasi.dart';
 import 'package:kp/screen/loginpage.dart';
 import 'package:kp/screen/splash_screen.dart';
 import 'package:kp/screen/update_user.dart';
@@ -38,6 +39,8 @@ class MyApp extends StatelessWidget {
               routes: {
                 "/": (context) => SplashScreen(),
                 LoginPage.route: (context) => LoginPage(),
+
+                Kalkulasi.route: (context) => Kalkulasi(),
                 Dashboard.route: (context) => Dashboard(),
                 FormUpdateUser.route: (context) => FormUpdateUser(),
                 HitungPage.route: (context) => HitungPage(),

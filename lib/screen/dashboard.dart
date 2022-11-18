@@ -8,6 +8,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:kp/model/post.dart';
 import 'package:kp/model/user.dart';
 import 'package:kp/screen/hitung_butroll.dart';
+import 'package:kp/screen/kalkulasi.dart';
 import 'package:kp/screen/update_user.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -150,8 +151,11 @@ class _DashboardState extends State<Dashboard> {
       child: Row(
         children: [
           Expanded(
-            child:
-                ElevatedButton(onPressed: (() {}), child: Text("Hitung Roll")),
+            child: ElevatedButton(
+                onPressed: (() {
+                  Navigator.pushNamed(context, Kalkulasi.route);
+                }),
+                child: Text("Hitung Roll")),
           ),
         ],
       ),
